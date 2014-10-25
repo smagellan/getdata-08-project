@@ -1,6 +1,9 @@
 Note: 
 1. Script-sanitizer requires dplyr package to run.
-2. Script expects UCI HAR Dataset is placed within current directory
+
+
+2. Script expects to find UCI HAR Dataset within current directory
+
 3. Script writes tidied data into "UCI_HAR_tidied.txt"
 
 
