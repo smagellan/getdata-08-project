@@ -27,8 +27,8 @@ extractMeasuresOfInterest <- function(dataSet){
     dt <- select(dataSet, 
                  one_of("SUBJECT_ID", "ACTIVITY_NAME"), matches("(std|mean)", ignore.case = FALSE), 
                  -contains("meanFreq"));
-    #names(dt) <- sub("\\.+$", "", names(dt));
-    #names(dt) <- sub("\\.+", "_", names(dt));
+    names(dt) <- sub("std", "standard_deviation", names(dt));
+    names(dt) <- sub("mean", "mean_value", names(dt));
     dt;
 }
 
@@ -37,10 +37,12 @@ collapseToGroups <- function(dataSet){
     dt <- aggregate(select(dataSet, -SUBJECT_ID, -ACTIVITY_NAME), 
                     by=list(dataSet$SUBJECT_ID, dataSet$ACTIVITY_NAME), 
                     FUN=mean);
-    #restore names of groups
+    #make group names human readable
     names(dt)[1:2] <- c("SUBJECT_ID", "ACTIVITY_NAME");
     dt;
 }
+
+
 
 
 TEST_DATASET_FILE <- "UCI HAR Dataset/test/X_test.txt";
@@ -70,4 +72,4 @@ cat("grouping by subject and activity, calculating mean values\n");
 tidyDataSet <- collapseToGroups(tidyDataSet);
 
 cat("writing sanitized data into tidyDataSet.txt\n");
-write.table(tidyDataSet, file="tidyDataSet.txt", row.name=FALSE);
+write.table(tidyDataSet, file="UCI_HAR_tidied.txt", row.name=FALSE);
