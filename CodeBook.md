@@ -8,6 +8,7 @@ How it works
 
 1. Merges the training and the test sets to create one data set.
 2. Extracts only the measurements on the mean and standard deviation for each measurement
+
 ```These are:
 tBodyAcc-mean()-X
 tBodyAcc-mean()-Y
@@ -45,6 +46,7 @@ fBodyBodyGyroJerkMag-mean()
 ```
 
 for mean and
+
 ```tBodyAcc-std()-X
 tBodyAcc-std()-Y
 tBodyAcc-std()-Z
@@ -78,6 +80,7 @@ fBodyAccMag-std()
 fBodyBodyAccJerkMag-std()
 fBodyBodyGyroMag-std()
 fBodyBodyGyroJerkMag-std()```
+
 for standard deviation
 
 3. Uses descriptive activity names to name the activities in the data set
@@ -158,7 +161,3 @@ fBodyBodyGyroJerkMag_mean_value
 
 5. From the data set in step 4, creates a second, independent tidy data set with the average of each variable for each activity and each subject.
 Final dataset has  180 observations of 68 variables (SUBJECT_ID, ACTIVITY_NAME, sensors);
-
-
-cat features.txt | awk '{print $2}' | grep std | sed 's@std@standard_deviation@' | sed "s@()@@" | sed 's@-@_@'
-cat features.txt | awk '{print $2}' | grep mean | grep -v meanFreq | sed 's@mean@mean_value@' | sed "s@()@@" | sed 's@-@_@'
