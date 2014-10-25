@@ -71,5 +71,5 @@ tidyDataSet <- rbind(extractMeasuresOfInterest(testDataSet), extractMeasuresOfIn
 cat("grouping by subject and activity, calculating mean values\n");
 tidyDataSet <- collapseToGroups(tidyDataSet);
 
-cat("writing sanitized data into tidyDataSet.txt\n");
+cat("writing sanitized data into UCI_HAR_tidied.txt\n");
 write.table(tidyDataSet, file="UCI_HAR_tidied.txt", row.name=FALSE);
