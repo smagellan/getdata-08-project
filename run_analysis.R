@@ -23,6 +23,8 @@ readEnrichedDataSet <- function(dataSetFilename, variableNamesVector, activityID
 }
 
 
+#returns original dataset with mean value(mean()) or standard deviation(std()) columns only
+#(meanFreq not included)
 extractMeasuresOfInterest <- function(dataSet){
     dt <- select(dataSet, 
                  one_of("SUBJECT_ID", "ACTIVITY_NAME"), matches("(std|mean)", ignore.case = FALSE), 
@@ -33,6 +35,11 @@ extractMeasuresOfInterest <- function(dataSet){
 }
 
 
+#groups dataset by subject_id, activity_id. values with groups are mean() over original dataSet.
+#i.e. in terms of SQL(mean eq avg): 
+#"SELECT SUBJECT_ID, ACTIVITY_NAME, avg(col1), avg(col2), avg(colN) FROM
+# dataSet
+# GROUP BY SUBJECT_ID, ACTIVITY_NAME"
 collapseToGroups <- function(dataSet){
     dt <- aggregate(select(dataSet, -SUBJECT_ID, -ACTIVITY_NAME), 
                     by=list(dataSet$SUBJECT_ID, dataSet$ACTIVITY_NAME), 
