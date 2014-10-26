@@ -8,6 +8,7 @@ How to read variables - attempt to summarize:
 6. standard_deviation standard deviation
 
 Full list(brackets at the end of line contain name of original column(see features.txt)):
+
 1. SUBJECT_ID - An identifier of the subject who carried out the experiment (int 1-30)
 2. ACTIVITY\_NAME - Subject activity (Factor with 6 levels: WALKING, WALKING\_UPSTAIRS, WALKING\_DOWNSTAIRS, SITTING, STANDING, LAYING)
 - UOMs(Units Of Measure) of variables below correspond to original variables.
