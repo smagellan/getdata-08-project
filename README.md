@@ -7,12 +7,13 @@ Notes
 4. It reads datasets slowly since read.table is utilized as file reader(fread of data.table causes SIGSEGV under linux)
 
 How it works
-
-1. Merges the training and the test sets to create one data set.
-2. Extracts only the measurements on the mean and standard deviation for each measurement
-3. Uses descriptive activity names to name the activities in the data set.
-These names come from activity\_labels.txt to ACTIVITY\_NAME column
-4. Appropriately labels the data set with descriptive variable names.
-These names come from features.txt. Extra transformation are applied: std() becomes standard\_deviation, mean() becomes mean\_value.
-5. From the data set in step 4, creates a second, independent tidy data set with the average of each variable for each activity and each subject.
-Final dataset has  180 observations of 68 variables (SUBJECT\_ID, ACTIVITY\_NAME, 66 of sensors measurements);
+1. Read and prepare/enrich dataSet(readEnrichedDataSet function):
+- Read dataSet(X\_test/X\_train), with correct columns(variables) names(comes from features.txt).
+- Attach SUBJECT\_ID column(subject\_test.txt/subject\_train.txt)
+- Attach ACTIVITY\_ID column(y\_test.txt/y\_train.txt)
+- Attach ACTIVITY\_NAME column with corresponding activity names(activity_labels.txt)
+2. Filter out unneeded columns, transform column names(extractMeasuresOfInterest function) 
+- retain columns containing 'std()' or 'mean()'(but meanFreq dropped) in names.
+- std() becomes standard\_deviation, mean() becomes mean\_value
+3. Group dataSet by SUBJECT\_ID, ACTIVITY\_NAME, calculate mean values of remaining columns within groups.
+4. Write processed dataSet into UCI\_HAR\_tidied.txt (180 observations of 68 variables (SUBJECT\_ID, ACTIVITY\_NAME, 66 of sensors measurements))
